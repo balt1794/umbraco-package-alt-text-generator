@@ -10,7 +10,7 @@ const t = [
     name: "Alt Text Generator AI Dashboard",
     alias: "AltTextGeneratorAI.Dashboard",
     type: "dashboard",
-    js: () => import("./dashboard.element-gPzh1_9t.js"),
+    js: () => import("./dashboard.element-CfSPV6bg.js"),
     weight: 100,
     meta: {
       label: "Alt Text Generator AI",

@@ -221,7 +221,6 @@ export class AltTextGeneratorAIDashboardElement extends UmbElementMixin(LitEleme
               <p>
                 Get a free key at
                 <a href="https://alttextgeneratorai.com/dashboard" target="_blank" rel="noopener">alttextgeneratorai.com</a>.
-                New accounts get free credits. Your key stays on your server and never reaches the browser.
               </p>
               <div class="key-row">
                 <uui-input
