@@ -1,0 +1,19 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "AuthorDetails": {
+    "Name": "Bryam Loaiza",
+    "Description": "Builds Alt Text Generator AI, which writes SEO-friendly alt text for images on WordPress, Shopify, TYPO3, Umbraco and more.",
+    "Url": "https://alttextgeneratorai.com",
+    "ImageUrl": "https://github.com/balt1794.png"
+  },
+  "Category": "Artificial Intelligence",
+  "AlternateCategory": "Editor Tools",
+  "Description": "Write SEO-friendly alt text for the images in your Umbraco media library with AI. Generate it for one image, a selection or every image that is missing it, in 131 languages, review it, and save.",
+  "DocumentationUrl": "https://alttextgeneratorai.com/integrations/umbraco-package",
+  "IssueTrackerUrl": "https://github.com/balt1794/umbraco-package-alt-text-generator/issues",
+  "LicenseTypes": ["Free"],
+  "PackageType": "Integration",
+  "Tags": ["alt text", "accessibility", "seo", "ai", "images", "media", "wcag"],
+  "Title": "Alt Text Generator AI",
+  "VersionDependencyMode": "SemVer"
+}

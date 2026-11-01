@@ -1,0 +1,6 @@
+bin/
+obj/
+Client/node_modules/
+*.nupkg
+.vs/
+.idea/

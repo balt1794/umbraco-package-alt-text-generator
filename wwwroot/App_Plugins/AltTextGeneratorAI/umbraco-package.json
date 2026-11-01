@@ -1,0 +1,14 @@
+{
+  "id": "AltTextGeneratorAI.Umbraco",
+  "name": "Alt Text Generator AI",
+  "version": "1.0.0",
+  "allowTelemetry": true,
+  "extensions": [
+    {
+      "name": "Alt Text Generator AI Bundle",
+      "alias": "AltTextGeneratorAI.Bundle",
+      "type": "bundle",
+      "js": "/App_Plugins/AltTextGeneratorAI/alt-text-generator-ai.js"
+    }
+  ]
+}
