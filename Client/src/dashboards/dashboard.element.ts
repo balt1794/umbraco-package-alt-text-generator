@@ -119,8 +119,9 @@ export class AltTextGeneratorAIDashboardElement extends UmbElementMixin(LitEleme
     this.#notify("positive", "API key saved");
   }
 
+  /** The images with no saved alt text. An image stays here after generating until the text is saved, so it can be reviewed. */
   get #missing() {
-    return this._rows.filter((row) => !row.draft.trim());
+    return this._rows.filter((row) => !row.altText.trim());
   }
 
   get #visible() {
@@ -155,7 +156,7 @@ export class AltTextGeneratorAIDashboardElement extends UmbElementMixin(LitEleme
   async #generateMany() {
     const targets = this._selected.size > 0
       ? this._rows.filter((row) => this._selected.has(row.key))
-      : this._overwrite ? this.#visible : this.#missing;
+      : this._overwrite ? this.#visible : this.#missing.filter((row) => !row.draft.trim());
 
     if (targets.length === 0) return;
 
@@ -290,11 +291,12 @@ export class AltTextGeneratorAIDashboardElement extends UmbElementMixin(LitEleme
     const showSetup = !this._settings?.hasKey || this._editingKey;
     const visible = this.#visible;
     const missing = this.#missing.length;
+    const toGenerate = this.#missing.filter((row) => !row.draft.trim()).length;
     const dirty = this.#dirty.length;
     const selected = this._selected.size;
     const generateLabel = selected > 0
       ? `Generate selected (${selected})`
-      : this._overwrite ? `Generate all (${visible.length})` : `Generate all missing (${missing})`;
+      : this._overwrite ? `Generate all (${visible.length})` : `Generate all missing (${toGenerate})`;
 
     return html`
       <div class="head">
@@ -335,7 +337,7 @@ export class AltTextGeneratorAIDashboardElement extends UmbElementMixin(LitEleme
                   : html`<uui-button
                       look="primary"
                       label=${generateLabel}
-                      ?disabled=${selected === 0 && (this._overwrite ? visible.length === 0 : missing === 0)}
+                      ?disabled=${selected === 0 && (this._overwrite ? visible.length === 0 : toGenerate === 0)}
                       @click=${this.#generateMany}
                     ></uui-button>`}
                 <uui-button
