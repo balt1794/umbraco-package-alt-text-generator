@@ -1,6 +1,8 @@
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Media;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
@@ -20,6 +22,8 @@ public class MediaAltTextService
     private readonly IMediaTypeService _mediaTypeService;
     private readonly IDataTypeService _dataTypeService;
     private readonly IShortStringHelper _shortStringHelper;
+    private readonly DataEditorCollection _dataEditors;
+    private readonly IConfigurationEditorJsonSerializer _configurationEditorJsonSerializer;
     private readonly MediaFileManager _mediaFileManager;
     private readonly IImageUrlGenerator _imageUrlGenerator;
     private readonly ILogger<MediaAltTextService> _logger;
@@ -29,6 +33,8 @@ public class MediaAltTextService
         IMediaTypeService mediaTypeService,
         IDataTypeService dataTypeService,
         IShortStringHelper shortStringHelper,
+        DataEditorCollection dataEditors,
+        IConfigurationEditorJsonSerializer configurationEditorJsonSerializer,
         MediaFileManager mediaFileManager,
         IImageUrlGenerator imageUrlGenerator,
         ILogger<MediaAltTextService> logger)
@@ -37,6 +43,8 @@ public class MediaAltTextService
         _mediaTypeService = mediaTypeService;
         _dataTypeService = dataTypeService;
         _shortStringHelper = shortStringHelper;
+        _dataEditors = dataEditors;
+        _configurationEditorJsonSerializer = configurationEditorJsonSerializer;
         _mediaFileManager = mediaFileManager;
         _imageUrlGenerator = imageUrlGenerator;
         _logger = logger;
@@ -51,14 +59,14 @@ public class MediaAltTextService
             return;
         }
 
-        var textBox = (await _dataTypeService.GetByEditorAliasAsync("Umbraco.TextBox")).FirstOrDefault();
-        if (textBox is null)
+        var dataType = await GetOrCreateDataTypeAsync();
+        if (dataType is null)
         {
-            _logger.LogWarning("Alt Text Generator AI could not find the text box data type, so the altText property was not added.");
+            _logger.LogWarning("Alt Text Generator AI could not create its data type, so the altText property was not added.");
             return;
         }
 
-        var propertyType = new PropertyType(_shortStringHelper, textBox, Constants.AltTextAlias)
+        var propertyType = new PropertyType(_shortStringHelper, dataType, Constants.AltTextAlias)
         {
             Name = "Alt text",
             Description = "Describes the image for people who cannot see it and for search engines.",
@@ -66,6 +74,31 @@ public class MediaAltTextService
 
         imageType.AddPropertyType(propertyType, "image", "Image");
         await _mediaTypeService.UpdateAsync(imageType, global::Umbraco.Cms.Core.Constants.Security.SuperUserKey);
+    }
+
+    /// <summary>A text box that shows a Generate button, so editors can write the alt text from the image itself.</summary>
+    private async Task<IDataType?> GetOrCreateDataTypeAsync()
+    {
+        var existing = await _dataTypeService.GetAsync(Constants.DataTypeName);
+        if (existing is not null)
+        {
+            return existing;
+        }
+
+        var editor = _dataEditors.FirstOrDefault(x => x.Alias == "Umbraco.TextBox");
+        if (editor is null)
+        {
+            return null;
+        }
+
+        var dataType = new DataType(editor, _configurationEditorJsonSerializer)
+        {
+            Name = Constants.DataTypeName,
+            EditorUiAlias = "AltTextGeneratorAI.PropertyEditorUi",
+        };
+
+        var result = await _dataTypeService.CreateAsync(dataType, global::Umbraco.Cms.Core.Constants.Security.SuperUserKey);
+        return result.Success ? result.Result : null;
     }
 
     public IReadOnlyList<ImageItemModel> GetImages()

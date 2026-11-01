@@ -9,6 +9,7 @@ Write SEO-friendly alt text for the images in your Umbraco media library. Genera
 ## What you get
 
 - **A dashboard in the Media section.** **Alt Text Generator AI** sits next to the media tree. It lists your images with a preview, shows the ones with no alt text, and writes it for all of them or only the ones you tick.
+- **A Generate button on every image.** Open any image in the media tree and the **Alt text** field has its own **Generate** button, for writing one description on the spot.
 - **Review before saving.** Edit any text, then save everything at once. The text goes into the **Alt text** property of each image.
 - **131 languages** for the text, including English, Spanish, French, German, Italian, Portuguese, Dutch, Russian, Chinese, Japanese, Korean, Arabic and Hindi.
 - **Credits shown in the dashboard.** One credit writes alt text for one image. New accounts get free credits.
@@ -49,7 +50,7 @@ To set the key in a deployment instead, add it to `appsettings.json`. A key save
 
 ## Show the alt text on your site
 
-The package adds an **Alt text** property (alias `altText`) to the **Image** media type the first time you open the dashboard. Use it where you render images:
+The package adds an **Alt text** property (alias `altText`) to the **Image** media type the first time you open the dashboard, with a data type called **Alt Text Generator AI** that shows the Generate button. Use it where you render images:
 
 ```csharp
 @using AltTextGeneratorAI.Umbraco

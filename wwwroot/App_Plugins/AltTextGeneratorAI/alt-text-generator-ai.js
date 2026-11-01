@@ -10,7 +10,7 @@ const t = [
     name: "Alt Text Generator AI Dashboard",
     alias: "AltTextGeneratorAI.Dashboard",
     type: "dashboard",
-    js: () => import("./dashboard.element-CfSPV6bg.js"),
+    js: () => import("./dashboard.element-nmSPZNWE.js"),
     weight: 100,
     meta: {
       label: "Alt Text Generator AI",
@@ -24,9 +24,23 @@ const t = [
     ]
   }
 ], a = [
+  {
+    type: "propertyEditorUi",
+    alias: "AltTextGeneratorAI.PropertyEditorUi",
+    name: "Alt Text Generator AI Property Editor UI",
+    element: () => import("./alt-text-property-editor.element-D_j-qOd4.js"),
+    meta: {
+      label: "Alt text with Generate button",
+      propertyEditorSchemaAlias: "Umbraco.TextBox",
+      icon: "icon-picture",
+      group: "common"
+    }
+  }
+], o = [
   ...t,
-  ...e
+  ...e,
+  ...a
 ];
 export {
-  a as manifests
+  o as manifests
 };

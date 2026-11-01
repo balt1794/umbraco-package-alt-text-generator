@@ -1,41 +1,9 @@
-import { LitElement as H, html as l, nothing as p, css as R, state as u, customElement as W } from "@umbraco-cms/backoffice/external/lit";
-import { UmbElementMixin as F } from "@umbraco-cms/backoffice/element-api";
-import { UMB_NOTIFICATION_CONTEXT as Y } from "@umbraco-cms/backoffice/notification";
-import { tryExecute as _ } from "@umbraco-cms/backoffice/resources";
-import { c as k } from "./client.gen-BFCdw88j.js";
-const q = (e) => (e?.client ?? k).post({
-  security: [{ scheme: "bearer", type: "http" }],
-  url: "/umbraco/alttextgeneratorai/api/v1/generate",
-  ...e,
-  headers: {
-    "Content-Type": "application/json",
-    ...e?.headers
-  }
-}), J = (e) => (e?.client ?? k).get({
-  security: [{ scheme: "bearer", type: "http" }],
-  url: "/umbraco/alttextgeneratorai/api/v1/images",
-  ...e
-}), X = (e) => (e?.client ?? k).post({
-  security: [{ scheme: "bearer", type: "http" }],
-  url: "/umbraco/alttextgeneratorai/api/v1/save",
-  ...e,
-  headers: {
-    "Content-Type": "application/json",
-    ...e?.headers
-  }
-}), Q = (e) => (e?.client ?? k).get({
-  security: [{ scheme: "bearer", type: "http" }],
-  url: "/umbraco/alttextgeneratorai/api/v1/settings",
-  ...e
-}), V = (e) => (e?.client ?? k).post({
-  security: [{ scheme: "bearer", type: "http" }],
-  url: "/umbraco/alttextgeneratorai/api/v1/settings",
-  ...e,
-  headers: {
-    "Content-Type": "application/json",
-    ...e?.headers
-  }
-}), Z = [
+import { LitElement as U, html as l, nothing as p, css as H, state as u, customElement as R } from "@umbraco-cms/backoffice/external/lit";
+import { UmbElementMixin as W } from "@umbraco-cms/backoffice/element-api";
+import { UMB_NOTIFICATION_CONTEXT as F } from "@umbraco-cms/backoffice/notification";
+import { tryExecute as m } from "@umbraco-cms/backoffice/resources";
+import { g as Y, a as q, p as J, b as X, c as Q } from "./sdk.gen-DKpuKDXF.js";
+const V = [
   ["english", "English"],
   ["spanish", "Spanish"],
   ["french", "French"],
@@ -168,18 +136,18 @@ const q = (e) => (e?.client ?? k).post({
   ["yoruba", "Yoruba"],
   ["zulu", "Zulu"]
 ];
-var ee = Object.defineProperty, te = Object.getOwnPropertyDescriptor, C = (e) => {
+var Z = Object.defineProperty, ee = Object.getOwnPropertyDescriptor, T = (e) => {
   throw TypeError(e);
 }, o = (e, t, a, h) => {
-  for (var n = h > 1 ? void 0 : h ? te(t, a) : t, g = e.length - 1, m; g >= 0; g--)
-    (m = e[g]) && (n = (h ? m(t, a, n) : m(n)) || n);
-  return h && n && ee(t, a, n), n;
-}, I = (e, t, a) => t.has(e) || C("Cannot " + a), d = (e, t, a) => (I(e, t, "read from private field"), a ? a.call(e) : t.get(e)), S = (e, t, a) => t.has(e) ? C("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, a), A = (e, t, a, h) => (I(e, t, "write to private field"), t.set(e, a), a), s = (e, t, a) => (I(e, t, "access private method"), a), $, v, i, E, y, w, M, z, b, T, G, f, K, j, L, P, B, O, D;
-const x = 100, N = "altTextGeneratorAI.language";
-let r = class extends F(H) {
+  for (var n = h > 1 ? void 0 : h ? ee(t, a) : t, g = e.length - 1, f; g >= 0; g--)
+    (f = e[g]) && (n = (h ? f(t, a, n) : f(n)) || n);
+  return h && n && Z(t, a, n), n;
+}, z = (e, t, a) => t.has(e) || T("Cannot " + a), d = (e, t, a) => (z(e, t, "read from private field"), a ? a.call(e) : t.get(e)), $ = (e, t, a) => t.has(e) ? T("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, a), S = (e, t, a, h) => (z(e, t, "write to private field"), t.set(e, a), a), s = (e, t, a) => (z(e, t, "access private method"), a), x, v, i, E, y, k, M, A, b, I, G, _, K, C, L, P, j, B, O;
+const w = 100, D = "altTextGeneratorAI.language";
+let r = class extends W(U) {
   constructor() {
-    super(), S(this, i), this._rows = [], this._loading = !0, this._filter = "missing", this._language = s(this, i, E).call(this), this._overwrite = !1, this._selected = /* @__PURE__ */ new Set(), this._shown = x, this._running = !1, this._saving = !1, this._keyInput = "", this._keyBusy = !1, this._editingKey = !1, this._error = "", S(this, $), S(this, v, !1), this.consumeContext(Y, (e) => {
-      A(this, $, e);
+    super(), $(this, i), this._rows = [], this._loading = !0, this._filter = "missing", this._language = s(this, i, E).call(this), this._overwrite = !1, this._selected = /* @__PURE__ */ new Set(), this._shown = w, this._running = !1, this._saving = !1, this._keyInput = "", this._keyBusy = !1, this._editingKey = !1, this._error = "", $(this, x), $(this, v, !1), this.consumeContext(F, (e) => {
+      S(this, x, e);
     });
   }
   connectedCallback() {
@@ -190,7 +158,7 @@ let r = class extends F(H) {
       return l`<div class="center"><uui-loader></uui-loader></div>`;
     if (this._error)
       return l`<uui-box headline="Alt Text Generator AI"><p>${this._error}</p></uui-box>`;
-    const e = !this._settings?.hasKey || this._editingKey, t = d(this, i, T), a = d(this, i, b).length, h = d(this, i, b).filter((c) => !c.draft.trim()).length, n = d(this, i, G).length, g = this._selected.size, m = g > 0 ? `Generate selected (${g})` : this._overwrite ? `Generate all (${t.length})` : `Generate all missing (${h})`;
+    const e = !this._settings?.hasKey || this._editingKey, t = d(this, i, I), a = d(this, i, b).length, h = d(this, i, b).filter((c) => !c.draft.trim()).length, n = d(this, i, G).length, g = this._selected.size, f = g > 0 ? `Generate selected (${g})` : this._overwrite ? `Generate all (${t.length})` : `Generate all missing (${h})`;
     return l`
       <div class="head">
         <div>
@@ -200,7 +168,7 @@ let r = class extends F(H) {
         ${this._settings?.credits != null ? l`<div class="credits">Credits left: <strong>${this._settings.credits}</strong></div>` : p}
       </div>
 
-      ${e ? s(this, i, O).call(this) : p}
+      ${e ? s(this, i, B).call(this) : p}
 
       ${this._settings?.hasKey ? l`
             <uui-box>
@@ -209,8 +177,8 @@ let r = class extends F(H) {
                   <span>Language of the alt text</span>
                   <uui-select
                     label="Language of the alt text"
-                    .options=${Z.map(([c, U]) => ({ name: U, value: c, selected: c === this._language }))}
-                    @change=${(c) => s(this, i, B).call(this, c.target.value)}
+                    .options=${V.map(([c, N]) => ({ name: N, value: c, selected: c === this._language }))}
+                    @change=${(c) => s(this, i, j).call(this, c.target.value)}
                   ></uui-select>
                 </label>
                 <uui-checkbox
@@ -220,11 +188,11 @@ let r = class extends F(H) {
                 >Overwrite images that already have alt text</uui-checkbox>
                 <div class="spacer"></div>
                 ${this._settings.canEditKey && !this._editingKey ? l`<uui-button look="secondary" label="Change API key" @click=${() => this._editingKey = !0}></uui-button>` : p}
-                ${this._running ? l`<uui-button look="secondary" color="danger" label="Stop" @click=${() => A(this, v, !0)}></uui-button>` : l`<uui-button
+                ${this._running ? l`<uui-button look="secondary" color="danger" label="Stop" @click=${() => S(this, v, !0)}></uui-button>` : l`<uui-button
                       look="primary"
-                      label=${m}
+                      label=${f}
                       ?disabled=${g === 0 && (this._overwrite ? t.length === 0 : h === 0)}
-                      @click=${s(this, i, j)}
+                      @click=${s(this, i, C)}
                     ></uui-button>`}
                 <uui-button
                   look="primary"
@@ -238,54 +206,54 @@ let r = class extends F(H) {
 
               <uui-tab-group>
                 <uui-tab label="Missing (${a})" ?active=${this._filter === "missing"} @click=${() => {
-      this._filter = "missing", this._shown = x;
+      this._filter = "missing", this._shown = w;
     }}>Missing (${a})</uui-tab>
                 <uui-tab label="All (${this._rows.length})" ?active=${this._filter === "all"} @click=${() => {
-      this._filter = "all", this._shown = x;
+      this._filter = "all", this._shown = w;
     }}>All (${this._rows.length})</uui-tab>
               </uui-tab-group>
 
               ${t.length === 0 ? l`<p class="empty">${this._filter === "missing" ? "Every image has alt text." : "Your media library has no images yet."}</p>` : l`
-                    ${t.slice(0, this._shown).map((c) => s(this, i, D).call(this, c))}
-                    ${t.length > this._shown ? l`<div class="more"><uui-button look="secondary" label="Show more" @click=${() => this._shown += x}></uui-button></div>` : p}
+                    ${t.slice(0, this._shown).map((c) => s(this, i, O).call(this, c))}
+                    ${t.length > this._shown ? l`<div class="more"><uui-button look="secondary" label="Show more" @click=${() => this._shown += w}></uui-button></div>` : p}
                   `}
             </uui-box>
           ` : p}
     `;
   }
 };
-$ = /* @__PURE__ */ new WeakMap();
+x = /* @__PURE__ */ new WeakMap();
 v = /* @__PURE__ */ new WeakMap();
 i = /* @__PURE__ */ new WeakSet();
 E = function() {
   try {
-    return localStorage.getItem(N) || "english";
+    return localStorage.getItem(D) || "english";
   } catch {
     return "english";
   }
 };
 y = function(e, t, a) {
-  d(this, $)?.peek(e, { data: { headline: t, message: a ?? "" } });
+  d(this, x)?.peek(e, { data: { headline: t, message: a ?? "" } });
 };
-w = function(e) {
+k = function(e) {
   const t = e;
   return t?.problemDetails?.detail || t?.detail || t?.message || "Something went wrong.";
 };
 M = async function() {
   this._loading = !0, this._error = "";
-  const e = await _(this, Q());
+  const e = await m(this, Y());
   if (e.data && (this._settings = e.data), e.data?.hasKey || !e.error) {
-    const t = await _(this, J());
-    t.error ? this._error = s(this, i, w).call(this, t.error) : t.data && (this._rows = t.data.items.map((a) => ({ ...a, draft: a.altText, busy: !1 })));
+    const t = await m(this, q());
+    t.error ? this._error = s(this, i, k).call(this, t.error) : t.data && (this._rows = t.data.items.map((a) => ({ ...a, draft: a.altText, busy: !1 })));
   }
   this._loading = !1;
 };
-z = async function() {
+A = async function() {
   if (!this._keyInput.trim()) return;
   this._keyBusy = !0;
-  const { data: e, error: t } = await _(this, V({ body: { apiKey: this._keyInput.trim() } }));
+  const { data: e, error: t } = await m(this, X({ body: { apiKey: this._keyInput.trim() } }));
   if (this._keyBusy = !1, t || !e) {
-    s(this, i, y).call(this, "danger", "Key not saved", s(this, i, w).call(this, t));
+    s(this, i, y).call(this, "danger", "Key not saved", s(this, i, k).call(this, t));
     return;
   }
   this._settings = e, this._keyInput = "", this._editingKey = !1, s(this, i, y).call(this, "positive", "API key saved");
@@ -293,28 +261,28 @@ z = async function() {
 b = function() {
   return this._rows.filter((e) => !e.altText.trim());
 };
-T = function() {
+I = function() {
   return this._filter === "missing" ? d(this, i, b) : this._rows;
 };
 G = function() {
   return this._rows.filter((e) => e.draft.trim() !== e.altText);
 };
-f = function(e, t) {
+_ = function(e, t) {
   this._rows = this._rows.map((a) => a.key === e ? { ...a, ...t } : a);
 };
 K = async function(e) {
-  s(this, i, f).call(this, e, { busy: !0, failed: void 0 });
-  const { data: t, error: a } = await _(this, q({ body: { key: e, language: this._language } }));
+  s(this, i, _).call(this, e, { busy: !0, failed: void 0 });
+  const { data: t, error: a } = await m(this, Q({ body: { key: e, language: this._language } }));
   if (a || !t) {
-    const h = s(this, i, w).call(this, a);
-    return s(this, i, f).call(this, e, { busy: !1, failed: h }), !1;
+    const h = s(this, i, k).call(this, a);
+    return s(this, i, _).call(this, e, { busy: !1, failed: h }), !1;
   }
-  return s(this, i, f).call(this, e, { busy: !1, draft: t.altText }), this._settings && t.creditsLeft != null && (this._settings = { ...this._settings, credits: t.creditsLeft }), !0;
+  return s(this, i, _).call(this, e, { busy: !1, draft: t.altText }), this._settings && t.creditsLeft != null && (this._settings = { ...this._settings, credits: t.creditsLeft }), !0;
 };
-j = async function() {
-  const e = this._selected.size > 0 ? this._rows.filter((a) => this._selected.has(a.key)) : this._overwrite ? d(this, i, T) : d(this, i, b).filter((a) => !a.draft.trim());
+C = async function() {
+  const e = this._selected.size > 0 ? this._rows.filter((a) => this._selected.has(a.key)) : this._overwrite ? d(this, i, I) : d(this, i, b).filter((a) => !a.draft.trim());
   if (e.length === 0) return;
-  this._running = !0, A(this, v, !1);
+  this._running = !0, S(this, v, !1);
   let t = 0;
   for (const a of e) {
     if (d(this, v) || !await s(this, i, K).call(this, a.key))
@@ -327,9 +295,9 @@ L = async function() {
   const e = d(this, i, G).map((n) => ({ key: n.key, altText: n.draft.trim() }));
   if (e.length === 0) return;
   this._saving = !0;
-  const { data: t, error: a } = await _(this, X({ body: { items: e } }));
+  const { data: t, error: a } = await m(this, J({ body: { items: e } }));
   if (this._saving = !1, a || !t) {
-    s(this, i, y).call(this, "danger", "Could not save", s(this, i, w).call(this, a));
+    s(this, i, y).call(this, "danger", "Could not save", s(this, i, k).call(this, a));
     return;
   }
   const h = new Set(e.map((n) => n.key));
@@ -339,14 +307,14 @@ P = function(e, t) {
   const a = new Set(this._selected);
   t ? a.add(e) : a.delete(e), this._selected = a;
 };
-B = function(e) {
+j = function(e) {
   this._language = e;
   try {
-    localStorage.setItem(N, e);
+    localStorage.setItem(D, e);
   } catch {
   }
 };
-O = function() {
+B = function() {
   const e = this._settings?.canEditKey ?? !1;
   return l`
       <uui-box headline="Add your API key">
@@ -362,14 +330,14 @@ O = function() {
                   placeholder="Paste your API key"
                   .value=${this._keyInput}
                   @input=${(t) => this._keyInput = t.target.value}
-                  @keydown=${(t) => t.key === "Enter" && s(this, i, z).call(this)}
+                  @keydown=${(t) => t.key === "Enter" && s(this, i, A).call(this)}
                 ></uui-input>
                 <uui-button
                   look="primary"
                   color="positive"
                   label="Save key"
                   .state=${this._keyBusy ? "waiting" : void 0}
-                  @click=${s(this, i, z)}
+                  @click=${s(this, i, A)}
                 ></uui-button>
                 ${this._settings?.hasKey ? l`<uui-button look="secondary" label="Cancel" @click=${() => this._editingKey = !1}></uui-button>` : p}
               </div>
@@ -377,7 +345,7 @@ O = function() {
       </uui-box>
     `;
 };
-D = function(e) {
+O = function(e) {
   return l`
       <div class="row">
         <uui-checkbox
@@ -392,7 +360,7 @@ D = function(e) {
             label="Alt text for ${e.name}"
             placeholder="No alt text yet"
             .value=${e.draft}
-            @input=${(t) => s(this, i, f).call(this, e.key, { draft: t.target.value })}
+            @input=${(t) => s(this, i, _).call(this, e.key, { draft: t.target.value })}
           ></uui-textarea>
           ${e.failed ? l`<div class="failed">${e.failed}</div>` : p}
         </div>
@@ -407,7 +375,7 @@ D = function(e) {
     `;
 };
 r.styles = [
-  R`
+  H`
       :host {
         display: block;
         padding: var(--uui-size-layout-1);
@@ -543,10 +511,10 @@ o([
   u()
 ], r.prototype, "_error", 2);
 r = o([
-  W("alt-text-generator-ai-dashboard")
+  R("alt-text-generator-ai-dashboard")
 ], r);
-const le = r;
+const re = r;
 export {
   r as AltTextGeneratorAIDashboardElement,
-  le as default
+  re as default
 };

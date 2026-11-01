@@ -9,6 +9,8 @@ namespace AltTextGeneratorAI.Umbraco
         /// <summary>The property added to the Image media type to hold the alt text.</summary>
         public const string AltTextAlias = "altText";
 
+        public const string DataTypeName = "Alt Text Generator AI";
+
         public const string ApiKeyStorageKey = "AltTextGeneratorAI.ApiKey";
     }
 }
